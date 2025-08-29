@@ -11,7 +11,6 @@ on:
         description: "Tags to release"
         required: true
         type: string
-  SNAPCRAFT_STORE_CREDENTIALS: ${{secrets.SNAPCRAFT_TOKEN}}
 
 jobs:
   # Build release binaries
@@ -46,13 +45,10 @@ jobs:
         run: |
           cp ui/dist/* ./internal/frontend/assets/
 
-      - name: Install Snapcraft
-        run: sudo snap install snapcraft --classic
-
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
         with:
           version: latest
           args: release --clean
         env:
-          GITHUB_TOKEN: ${{secrets.DAGU_GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
