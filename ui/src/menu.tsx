@@ -5,6 +5,8 @@ import { BarChart2, GitBranch, List, Search, Server, PanelLeft, Github, MessageS
 import * as React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FeedbackDialog } from '@/components/FeedbackDialog';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { t } from '@/i18n';
 
 // Discord SVG Icon component
 function DiscordIcon({ className }: { className?: string }) {
@@ -125,13 +127,13 @@ export const mainListItems = React.forwardRef<
           {isOpen && (
             <div className="px-3 py-1">
               <span className="text-[10px] uppercase text-primary-foreground/40 font-medium">
-                Overview
+                {t('overview')}
               </span>
             </div>
           )}
           <NavItem
             to="/dashboard"
-            text="Dashboard"
+            text={t('dashboard')}
             icon={<BarChart2 size={18} />}
             isOpen={isOpen}
             onClick={onNavItemClick}
@@ -146,34 +148,34 @@ export const mainListItems = React.forwardRef<
           {isOpen && (
             <div className="px-3 py-1">
               <span className="text-[10px] uppercase text-primary-foreground/40 font-medium">
-                Workflows
+                {t('workflows')}
               </span>
             </div>
           )}
           <NavItem
             to="/queues"
-            text="Queues"
+            text={t('queues')}
             icon={<Layers size={18} />}
             isOpen={isOpen}
             onClick={onNavItemClick}
           />
           <NavItem
             to="/dag-runs"
-            text="DAG Runs"
+            text={t('dagRuns')}
             icon={<List size={18} />}
             isOpen={isOpen}
             onClick={onNavItemClick}
           />
           <NavItem
             to="/dags"
-            text="DAG Definitions"
+            text={t('dagDefinitions')}
             icon={<GitBranch size={18} />}
             isOpen={isOpen}
             onClick={onNavItemClick}
           />
           <NavItem
             to="/search"
-            text="Search DAG Definitions"
+            text={t('searchDAGDefinitions')}
             icon={<Search size={18} />}
             isOpen={isOpen}
             onClick={onNavItemClick}
@@ -188,26 +190,28 @@ export const mainListItems = React.forwardRef<
           {isOpen && (
             <div className="px-3 py-1">
               <span className="text-[10px] uppercase text-primary-foreground/40 font-medium">
-                System
+                {t('system')}
               </span>
             </div>
           )}
           <NavItem
             to="/workers"
-            text="Workers"
+            text={t('workers')}
             icon={<Server size={18} />}
             isOpen={isOpen}
             onClick={onNavItemClick}
           />
           <NavItem
             to="/system-status"
-            text="System Status"
+            text={t('systemStatus')}
             icon={<Activity size={18} />}
             isOpen={isOpen}
             onClick={onNavItemClick}
           />
         </div>
       </nav>
+      {/* Language Switcher */}
+      <LanguageSwitcher isOpen={isOpen} />
       {/* Feedback button */}
       <div className="px-2 pb-1">
         <button
@@ -221,7 +225,7 @@ export const mainListItems = React.forwardRef<
           title="Send Feedback"
         >
           <MessageSquare size={18} />
-          {isOpen && <span className="ml-3 text-xs font-medium">Send Feedback</span>}
+          {isOpen && <span className="ml-3 text-xs font-medium">{t('sendFeedback')}</span>}
         </button>
       </div>
       {/* Discord Community link */}
@@ -239,7 +243,7 @@ export const mainListItems = React.forwardRef<
           title="Discord Community"
         >
           <DiscordIcon />
-          {isOpen && <span className="ml-3 text-xs font-medium">Discord</span>}
+          {isOpen && <span className="ml-3 text-xs font-medium">{t('discord')}</span>}
         </a>
       </div>
       {/* GitHub link */}
@@ -257,14 +261,14 @@ export const mainListItems = React.forwardRef<
           title="GitHub Repository"
         >
           <Github size={18} />
-          {isOpen && <span className="ml-3 text-xs font-medium">GitHub</span>}
+          {isOpen && <span className="ml-3 text-xs font-medium">{t('github')}</span>}
         </a>
       </div>
       {/* Version display - only shown when sidebar is expanded */}
       {isOpen && (
         <div className="px-3 py-2 text-xs text-primary-foreground/60">
           <div className="border-t border-primary-foreground/10 pt-2">
-            Version: {config.version}
+            {t('version')}: {config.version}
           </div>
         </div>
       )}

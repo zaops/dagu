@@ -9,6 +9,7 @@ import WorkerList from '../../features/workers/components/WorkerList';
 import WorkerMetrics from '../../features/workers/components/WorkerMetrics';
 import { DAGRunDetailsModal } from '../../features/dag-runs/components/dag-run-details';
 import { cn } from '../../lib/utils';
+import { t } from '../../i18n';
 
 function Workers() {
   const appBarContext = React.useContext(AppBarContext);
@@ -22,7 +23,7 @@ function Workers() {
   } | null>(null);
 
   React.useEffect(() => {
-    appBarContext.setTitle('Workers');
+    appBarContext.setTitle(t('workers'));
   }, [appBarContext]);
 
   const { data, error, isLoading, mutate } = useQuery('/workers', {
@@ -120,7 +121,7 @@ function Workers() {
         <div className="text-center space-y-2">
           <Server className="h-12 w-12 text-muted-foreground mx-auto" />
           <p className="text-sm text-muted-foreground">
-            {errorData?.message || 'Failed to load workers'}
+            {errorData?.message || t('error')}
           </p>
           {data?.errors?.map((err, idx) => (
             <p key={idx} className="text-xs text-red-600">{err}</p>
@@ -138,13 +139,13 @@ function Workers() {
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
               <Activity className="h-4 w-4 text-muted-foreground" />
-              <h1 className="text-sm font-semibold">Distributed Workers</h1>
+              <h1 className="text-sm font-semibold">{t('distributedWorkers')}</h1>
             </div>
             <div className="relative">
               <Search className="absolute left-2 top-1.5 h-3 w-3 text-muted-foreground" />
               <Input
                 type="text"
-                placeholder="Search by ID or labels..."
+                placeholder={t('searchByIdOrLabels') + "..."}
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
                 className="h-7 w-[250px] pl-7 text-xs"
@@ -162,7 +163,7 @@ function Workers() {
               "h-3 w-3",
               isRefreshing && "animate-spin"
             )} />
-            <span className="ml-1 text-xs">Refresh</span>
+            <span className="ml-1 text-xs">{t('refresh')}</span>
           </Button>
         </div>
       </div>
@@ -176,7 +177,7 @@ function Workers() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Cpu className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm font-semibold">Worker Status</span>
+              <span className="text-sm font-semibold">{t('workerStatus')}</span>
               {filteredWorkers.length !== data?.workers?.length && (
                 <span className="text-xs text-muted-foreground">
                   ({filteredWorkers.length} of {data?.workers?.length})
@@ -186,15 +187,15 @@ function Workers() {
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <div className="flex items-center gap-1">
                 <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                <span>Healthy</span>
+                <span>{t('healthy')}</span>
               </div>
               <div className="flex items-center gap-1">
                 <div className="w-2 h-2 rounded-full bg-yellow-500" />
-                <span>Warning</span>
+                <span>{t('warning')}</span>
               </div>
               <div className="flex items-center gap-1">
                 <div className="w-2 h-2 rounded-full bg-red-500" />
-                <span>Offline</span>
+                <span>{t('offline')}</span>
               </div>
             </div>
           </div>
