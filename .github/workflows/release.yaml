@@ -5,8 +5,12 @@ on:
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+"
       - "v[0-9]+.[0-9]+.[0-9]+-*"
-
-env:
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: "Tags to release"
+        required: true
+        type: string
   SNAPCRAFT_STORE_CREDENTIALS: ${{secrets.SNAPCRAFT_TOKEN}}
 
 jobs:
